@@ -1,0 +1,152 @@
+<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+  <label class="btn btn-outline-primary" for="btnradio1">Persona Natural</label>
+
+  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+  <label class="btn btn-outline-primary" for="btnradio2">Persona Jurídica</label>
+</div>
+
+
+<h3>Cuenta Persona Jurídica</h3>
+<form [formGroup]="registrationForm" class="row g-3" novalidate (ngSubmit)="onSubmit()" #ngForm="ngForm">
+    <h4>Ingrese sus datos:</h4>
+    <div class="col-md-6">
+      <label for="razonSocial" class="form-label">Razón Social</label>
+      <input type="text" id="razonSocial" name="razonSocial"
+        class="form-control" formControlName="razonSocial"
+        [ngClass]="{'is-invalid': ngForm.submitted && IsInvalid('razonSocial')}">
+        <div class="invalid-feedback">
+        Este campo es requerido.
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="ruc" class="form-label">Ruc</label>
+      <input type="text" id="ruc" name="ruc" class="form-control"
+        formControlName="ruc" [ngClass]="{'is-invalid': IsInvalid('ruc')}">
+        <div class="invalid-feedback">
+        Este campo es requerido.
+        </div>
+    </div>
+    <div class="col-md-4">
+        <label for="inicioActividad" class="form-label">Año de inicio de actividad</label>
+        <input type="text" name="inicioActividad" id="inicioActividad"
+                  class="form-control" formControlName="inicioActividad"
+                  [ngClass]="{'is-invalid': IsInvalid('inicioActividad')}">
+                  <div class="invalid-feedback">
+                    Este campo es requerido.
+                  </div>
+      </div>
+      <div class="col-md-4">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <input type="text" name="telefono" id="telefono"
+                  class="form-control" formControlName="telefono"
+                  [ngClass]="{'is-invalid': IsInvalid('telefono')}">
+                  <div class="invalid-feedback">
+                    Este campo es requerido.
+                  </div>
+      </div>
+      <div class="col-md-4">
+        <label for="nacionalidad" class="form-label">Nacionalidad</label>
+        <select class="form-select" name="nacionalidad" id="nacionalidad"
+            formControlName="nacionalidad" [ngClass]="{'is-invalid': IsInvalid('nacionalidad')}">
+                <option selected></option>
+                <option value="1">Ecuatoriana</option>
+                <option value="2">Otra</option>
+                </select>
+        <div class="invalid-feedback">
+        Este campo es requerido.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="nombreContacto" class="form-label">Nombre del contacto</label>
+        <input type="text" id="nombreContacto" name="nombreContacto"
+                  class="form-control" formControlName="nombreContacto"
+                  [ngClass]="{'is-invalid': IsInvalid('nombreContacto')}">
+                  <div class="invalid-feedback">
+                    Este campo es requerido.
+                  </div>
+      </div>
+      <div class="col-md-6">
+        <label for="cargoContacto" class="form-label">Cargo del contacto</label>
+        <input type="text" id="cargoContacto" name="cargoContacto"
+                  class="form-control" formControlName="cargoContacto"
+                  [ngClass]="{'is-invalid': IsInvalid('cargoContacto')}">
+                  <div class="invalid-feedback">
+                    Este campo es requerido.
+                  </div>
+      </div>
+
+      <h4>Cree su usuario y contraseña:</h4>
+
+    <div class="col-12">
+      <label for="correoElectronico" class="form-label">Correo electrónico</label>
+      <input type="email" id="correoElectronico" name="correoElectronico" 
+                  class="form-control" formControlName="correoElectronico"
+                  [ngClass]="{'is-invalid': IsInvalid('correoElectronico')}">
+                  <div class="invalid-feedback">
+                    Ingrese un correo electrónico válido.
+                  </div>
+    </div>
+    <div class="col-md-6">
+        <label for="contrasenia" class="form-label">Crear Contraseña</label>
+        <input type="password" id="contrasenia" name="contrasenia"
+                  class="form-control" aria-describedby="passwordHelpInline"
+                  formControlName="contrasenia" [ngClass]="{'is-invalid': IsInvalid('contrasenia')}">
+                  <span id="passwordHelpInline" class="form-text">
+                    Debe tener entre 6 y 12 caracteres, al menos 1 letra mayúscula, al menos 1 número y un símbolo (*, +, $, ¡).
+                  </span>
+                  <div class="invalid-feedback">
+                    <div *ngIf="contrasenia?.errors?.['required']">
+                        Este campo es requerido
+                    </div>
+                    <div *ngIf="contrasenia?.errors?.['pattern']">
+                        La contraseña no cumple con el formato indicado
+                    </div>
+                    <div *ngIf="contrasenia?.errors?.['minlength']">Campo no cumple el mínimo
+                        de {{ contrasenia?.errors?.['minlength'].requiredLength }} caracteres</div>
+                    <div *ngIf="contrasenia?.errors?.['maxlength']">Campo supera máximo
+                        de {{ contrasenia?.errors?.['maxlength'].requiredLength }} caracteres</div>
+                  </div>
+      </div>
+      <div class="col-md-6">
+        <label for="confirmarContrasenia" class="form-label">Confirmar Contraseña</label>
+        <input type="password" id="confirmarContrasenia" name="confirmarContrasenia"
+            class="form-control" aria-describedby="passwordHelpInline"
+            formControlName="confirmarContrasenia" [ngClass]="{'is-invalid': IsInvalid('confirmarContrasenia')}">
+            <div class="invalid-feedback">
+                <div *ngIf="confirmarContrasenia?.errors?.['required']">Este campo es requerido</div>
+                <div *ngIf="confirmarContrasenia?.errors?.['matching']">Las contraseñas deben coincidir</div>
+            </div>
+      </div>
+
+
+    <div class="col-md-12">
+      <label for="comoContactaste" class="form-label">¿Cómo nos contacto?</label>
+      <select class="form-select" name="comoContactaste" id="comoContactaste"
+            formControlName="comoContactaste" [ngClass]="{'is-invalid': IsInvalid('comoContactaste')}">
+                <option selected></option>
+                <option value="1">Redes Sociales</option>
+                <option value="2">Publicidad</option>
+                <option value="3">Analista de Operaciones</option>
+                </select>
+                <div class="invalid-feedback">
+                Este campo es requerido.
+                </div>
+    </div>
+    <div class="col-12">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="true"
+        id="acuerdo" name="acuerdo" formControlName="acuerdo"
+        [ngClass]="{'is-invalid': IsInvalid('acuerdo')}">
+        <label class="form-check-label" for="flexCheckDefault">
+            Estoy de acuerdo y acepto los términos de uso y política de privacidad de la plataforma
+        </label>
+        <div class="invalid-feedback">
+            Debe de aceptar los términos de uso.
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Aceptar</button>
+    </div>
+  </form>

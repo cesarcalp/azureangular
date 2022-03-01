@@ -1,0 +1,68 @@
+{
+  "api": {
+    "basepath": "http://10.40.11.206:8082/AplicacionVentasGDOApi/api",
+    "endpoints": [
+      {
+        "login": [
+          {
+            "name": "authenticate",
+            "url": "/autenticacion/validarUsuario",
+            "headers": [
+              {
+                "Content-Type": "application/json"
+              }
+            ]
+          }
+        ],
+        "restAPI": [
+          {
+            "name": "Parametros",
+            "url": "/multiplo/parametros/",
+            "headers": [
+              {
+                "Content-Type": "application/json"
+              }
+            ]
+          },
+          {
+            "name": "RegistroPersonaNatural",
+            "url": "/multiplo/cuentas",
+            "headers": [
+              {
+                "Content-Type": "application/json"
+              }
+            ]
+          },
+          {
+            "name": "RegistroPersonaJuridica",
+            "url": "/multiplo/cuentas",
+            "headers": [
+              {
+                "Content-Type": "application/json"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "paths": {
+    "images": "./assets/images"
+  },
+  "notifications": {
+    "options": {
+      "timeOut": 5000,
+      "showProgressBar": true,
+      "pauseOnHover": true,
+      "position": [
+        "bottom",
+        "right"
+      ],
+      "theClass": "sy-notification"
+    }
+  },
+  "parametros": {
+    "validarRecaptcha": true,
+    "recaptchaKey": "6LdWJsAUAAAAAKfew9MLLRCAtwbg9t_qhraqbw3P"
+  }
+}
