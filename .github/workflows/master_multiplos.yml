@@ -52,4 +52,4 @@ jobs:
         with:
           app-name: 'multiplos'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BB750914542E427BA4DE6A693F10484F }}
-          package: ./dist/multiplos
+          package: ./dist/multiplo
