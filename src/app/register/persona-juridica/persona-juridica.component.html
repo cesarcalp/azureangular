@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-12">
 
-      <h3 class="text-danger text-center">Cuenta Persona Jurídica</h3>
+      <h3 class="text-warning text-center">Cuenta Persona Jurídica</h3>
       <form [formGroup]="registrationForm" class="row g-3" novalidate (ngSubmit)="onSubmit()" #ngForm="ngForm">
-        <h4>Ingrese sus datos:</h4>
+        <h4 class="text-warning">Ingrese sus datos:</h4>
         <div class="col-md-6">
           <label for="razonSocial" class="form-label">Razón Social</label>
           <input type="text" id="razonSocial" name="razonSocial" class="form-control uppercase"
@@ -94,7 +94,7 @@
           </div>
         </div>
 
-        <h4>Cree su usuario y contraseña:</h4>
+        <h4 class="text-warning">Cree su usuario y contraseña:</h4>
 
         <div class="col-12">
           <label for="correoElectronico" class="form-label">Correo electrónico</label>
@@ -163,7 +163,7 @@
           </div>
         </div>
         <div class="col-12">
-          <button type="submit" class="btn btn-danger">Aceptar</button>
+          <button type="submit" class="btn btn-warning">Aceptar</button>
         </div>
       </form>
     </div>

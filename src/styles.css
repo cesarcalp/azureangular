@@ -1,4 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
-.uppercase{
-    text-transform: uppercase;
+.uppercase {
+  text-transform: uppercase;
+}
+
+.btn-danger {
+  background-color: #E33823;
+  color: #fff;
+  border-color: #E33823;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+  background-color: #E33823;
+  color: #fff;
+  border-color: #E33823;
+}
+
+
+.btn-warning {
+    background-color: #EF8448;
+    color: #fff;
+    border-color: #EF8448;
+  }
+  
+  .btn-warning:hover,
+  .btn-warning:focus,
+  .btn-warning:active,
+  .btn-warning.active,
+  .open .dropdown-toggle.btn-warning {
+    background-color: #EF8448;
+    color: #fff;
+    border-color: #EF8448;
+  }
+
+.text-primary {
+    color: #124278 !important
+}
+
+.text-warning {
+    color: #EF8448 !important
 }
