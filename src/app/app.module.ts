@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { PersonaJuridicaComponent } from './register/persona-juridica/persona-juridica.component';
 import { PersonaNaturalComponent } from './register/persona-natural/persona-natural.component';
+import { HomeComponent } from './home/home.component';
 
 export function configServiceFactory(config: ConfigService) {
   return () => config.load();
@@ -19,7 +20,8 @@ export function configServiceFactory(config: ConfigService) {
   declarations: [
     AppComponent,
     PersonaJuridicaComponent,
-    PersonaNaturalComponent
+    PersonaNaturalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
