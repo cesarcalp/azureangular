@@ -39,11 +39,12 @@
       <div class="col-md-4">
         <label for="nacionalidad" class="form-label">Nacionalidad</label>
         <select class="form-select" name="nacionalidad" id="nacionalidad"
-            formControlName="nacionalidad" [ngClass]="{'is-invalid': IsInvalid('nacionalidad')}">
-                <option selected></option>
-                <option value="1">Ecuatoriana</option>
-                <option value="2">Otra</option>
-                </select>
+          formControlName="nacionalidad" [ngClass]="{'is-invalid': IsInvalid('nacionalidad')}">
+              <option [ngValue]="null"> - Seleccione - </option>
+              <option *ngFor="let item of nacionalidades" [ngValue]="item.iso">
+                {{item.gentilicio}}
+              </option>
+        </select>
         <div class="invalid-feedback">
         Este campo es requerido.
         </div>

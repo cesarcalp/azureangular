@@ -12,8 +12,8 @@
     </div>
     <div class="col-md-6">
       <label for="apellidos" class="form-label">Apellidos</label>
-      <input type="text" id="ruc" name="ruc" class="form-control"
-        formControlName="ruc" [ngClass]="{'is-invalid': IsInvalid('apellidos')}">
+      <input type="text" id="apellidos" name="apellidos" class="form-control"
+        formControlName="apellidos" [ngClass]="{'is-invalid': IsInvalid('apellidos')}">
         <div class="invalid-feedback">
         Este campo es requerido.
         </div>
@@ -41,10 +41,11 @@
         <label for="nacionalidad" class="form-label">Nacionalidad</label>
         <select class="form-select" name="nacionalidad" id="nacionalidad"
             formControlName="nacionalidad" [ngClass]="{'is-invalid': IsInvalid('nacionalidad')}">
-                <option selected></option>
-                <option value="1">Ecuatoriana</option>
-                <option value="2">Otra</option>
-                </select>
+              <option [ngValue]="null"> - Seleccione - </option>
+              <option *ngFor="let item of nacionalidades" [ngValue]="item.iso">
+                {{item.gentilicio}}
+              </option>
+            </select>
         <div class="invalid-feedback">
         Este campo es requerido.
         </div>
@@ -75,7 +76,8 @@
         <label for="contrasenia" class="form-label">Crear Contraseña</label>
         <input type="password" id="contrasenia" name="contrasenia"
                   class="form-control" aria-describedby="passwordHelpInline"
-                  formControlName="contrasenia" [ngClass]="{'is-invalid': IsInvalid('contrasenia')}">
+                  formControlName="contrasenia" [ngClass]="{'is-invalid': IsInvalid('contrasenia')}"
+                  >
                   <span id="passwordHelpInline" class="form-text">
                     Debe tener entre 6 y 12 caracteres, al menos 1 letra mayúscula, al menos 1 número y un símbolo (*, +, $, ¡).
                   </span>

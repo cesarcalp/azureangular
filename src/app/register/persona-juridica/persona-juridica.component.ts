@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { finalize, Observable, Subscription } from 'rxjs';
 import { matchValidator } from 'src/app/providers/CustomValidators';
+import { PaisesInterface } from 'src/app/shared/models/paises-interface';
 import { ParametrosInterface } from 'src/app/shared/models/parametros-interface';
 import { PersonaJuridicaInterface } from 'src/app/shared/models/persona-juridica-interface';
 import { DataApiClientService } from 'src/app/shared/services/data-api-client.service';
@@ -18,7 +19,7 @@ export class PersonaJuridicaComponent implements OnInit {
   
   submitted: boolean = false;
   guardando: boolean = false;
-  nacionalidades: Array<ParametrosInterface> = [];
+  nacionalidades: Array<PaisesInterface> = [];
   comoNosContacto: Array<ParametrosInterface> = [];
   private subscriptions: Array<Subscription> = [];
   guardar$: Observable<any> | undefined;
@@ -51,7 +52,7 @@ export class PersonaJuridicaComponent implements OnInit {
     ]),
     contrasenia: new FormControl(null, [
       Validators.required,
-      Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+      //Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
       Validators.minLength(6),
       Validators.maxLength(12),
       matchValidator('confirmarContrasenia', true)
@@ -77,7 +78,7 @@ export class PersonaJuridicaComponent implements OnInit {
     private dataApiClient: DataApiClientService,) { }
 
   ngOnInit(): void {
-    
+    this.getCatalogos();
   }
 
   onSubmit() {
@@ -107,8 +108,8 @@ export class PersonaJuridicaComponent implements OnInit {
 
   getCatalogos(): void {
     
-    this.dataApiClient.ConsultaItems("Nacionalidades").subscribe(
-      (data: Array<ParametrosInterface>) => {
+    this.dataApiClient.ConsultaPaises().subscribe(
+      (data: Array<PaisesInterface>) => {
         this.nacionalidades = data;
       });
 
@@ -157,7 +158,8 @@ export class PersonaJuridicaComponent implements OnInit {
           text: 'Su cuenta ha sido creada correctamente, por favor revise su correo  para validar la cuenta.',
           icon: 'success',
           confirmButtonText: 'Aceptar'
-        });        
+        });
+        this.resetForm();
       },
       (error) => {
         console.warn(error);
@@ -171,6 +173,11 @@ export class PersonaJuridicaComponent implements OnInit {
       }
     ));
 
+  }
+
+  resetForm() : void{
+    this.formDirective.resetForm();
+    this.registrationForm.reset();
   }
 
 }

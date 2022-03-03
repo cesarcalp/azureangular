@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ConfigService } from 'src/app/config.service';
+import { PaisesInterface } from '../models/paises-interface';
 import { ParametrosInterface } from '../models/parametros-interface';
 
 @Injectable({
@@ -21,6 +22,13 @@ export class DataApiClientService {
   ConsultaItems(catalogo: string): Observable<Array<ParametrosInterface>> {
     const service = this.dataObj.restAPI.filter((m: any) => m.name === 'Parametros')[0];
     return this.http.get<Array<ParametrosInterface>>(`${this.api.basepath}${service.url}${catalogo}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  ConsultaPaises(): Observable<Array<PaisesInterface>> {
+    const service = this.dataObj.restAPI.filter((m: any) => m.name === 'Paises')[0];
+    return this.http.get<Array<PaisesInterface>>(`${this.api.basepath}${service.url}`).pipe(
       catchError(this.handleError)
     );
   }

@@ -1,23 +1,21 @@
 {
   "api": {
-    "basepath": "http://10.40.11.206:8082/AplicacionVentasGDOApi/api",
+    "basepath": "https://bryan2022.azurewebsites.net",
     "endpoints": [
       {
-        "login": [
+        "restAPI": [
           {
-            "name": "authenticate",
-            "url": "/autenticacion/validarUsuario",
+            "name": "Parametros",
+            "url": "/multiplo/parametros/",
             "headers": [
               {
                 "Content-Type": "application/json"
               }
             ]
-          }
-        ],
-        "restAPI": [
+          },
           {
-            "name": "Parametros",
-            "url": "/multiplo/parametros/",
+            "name": "Paises",
+            "url": "/multiplo/paises",
             "headers": [
               {
                 "Content-Type": "application/json"
