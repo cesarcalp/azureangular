@@ -159,7 +159,7 @@ export class PersonaNaturalComponent implements OnInit {
         this.guardando = false;
         Swal.fire({
           title: 'Exito!',
-          text: 'Su cuenta ha sido creada correctamente, por favor revise su correo  para validar la cuenta.',
+          text: 'Su cuenta ha sido creada correctamente, nos pondremos en contacto con usted.',
           icon: 'success',
           confirmButtonText: 'Aceptar'
         }).then(()=>{
