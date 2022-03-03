@@ -29,7 +29,9 @@ export class PersonaJuridicaComponent implements OnInit {
       Validators.required
     ]),
     ruc: new FormControl(null, [
-      Validators.required
+      Validators.required,
+      Validators.minLength(13),
+      Validators.maxLength(13),
     ]),
     inicioActividad: new FormControl(null, [
       Validators.required
@@ -41,10 +43,15 @@ export class PersonaJuridicaComponent implements OnInit {
       Validators.required
     ]),
     nombreContacto: new FormControl(null, [
-      Validators.required
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(100),
+      Validators.pattern('^[a-zA-Z ]*$')
     ]),
     cargoContacto: new FormControl(null, [
-      Validators.required
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(100)
     ]),
     correoElectronico: new FormControl(null, [
       Validators.required,
@@ -52,7 +59,7 @@ export class PersonaJuridicaComponent implements OnInit {
     ]),
     contrasenia: new FormControl(null, [
       Validators.required,
-      //Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*+$¡])[A-Za-z\d*+$¡].{6,}'),
       Validators.minLength(6),
       Validators.maxLength(12),
       matchValidator('confirmarContrasenia', true)
@@ -73,7 +80,11 @@ export class PersonaJuridicaComponent implements OnInit {
   get db() { return this.registrationForm.controls }
   get contrasenia() { return this.registrationForm.get('contrasenia'); }
   get confirmarContrasenia() { return this.registrationForm.get('confirmarContrasenia'); }
-
+  get ruc() { return this.registrationForm.get('ruc'); }
+  get inicioActividad() { return this.registrationForm.get('inicioActividad'); }
+  get nombreContacto() { return this.registrationForm.get('nombreContacto'); }
+  get cargoContacto() { return this.registrationForm.get('cargoContacto'); }
+  
   constructor(private formBuilder: FormBuilder,
     private dataApiClient: DataApiClientService,) { }
 
@@ -126,10 +137,10 @@ export class PersonaJuridicaComponent implements OnInit {
       tipoCliente: 'INVERSIONISTA',
       tipoPersona: 'JUR',
       tipoIdentificacion: 'RUC',
-      razonSocial: this.db['razonSocial'].value,
+      razonSocial: (this.db['razonSocial'].value as string).toUpperCase(),
       identificacion: this.db['ruc'].value,
-      nombreContacto: this.db['nombreContacto'].value,
-      cargoContacto: this.db['cargoContacto'].value,
+      nombreContacto: (this.db['nombreContacto'].value as string).toUpperCase(),
+      cargoContacto: (this.db['cargoContacto'].value as string).toUpperCase(),
       anioInicioActividad: this.db['inicioActividad'].value,
       email: this.db['correoElectronico'].value,
       numeroCelular: this.db['telefono'].value,
@@ -180,5 +191,27 @@ export class PersonaJuridicaComponent implements OnInit {
     this.registrationForm.reset();
   }
 
+  keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  keyPressAlpha(event: { keyCode: number; preventDefault: () => void; }) {
+
+    var inp = String.fromCharCode(event.keyCode);
+
+    if (/^[a-zA-Z ]*$/.test(inp)) {
+      return true;
+    } else {
+      event.preventDefault();
+      return false;
+    }
+  }
 }
 

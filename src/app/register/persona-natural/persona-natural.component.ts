@@ -34,7 +34,9 @@ export class PersonaNaturalComponent implements OnInit {
       Validators.required
     ]),
     cedula: new FormControl(null, [
-      Validators.required
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(10),
     ]),
     fechaNacimiento: new FormControl(null, [
       Validators.required
@@ -51,7 +53,7 @@ export class PersonaNaturalComponent implements OnInit {
     ]),
     contrasenia: new FormControl(null, [
       Validators.required,
-      //Validators.pattern('^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[$+*¡]).{6,12}$'),
+      Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*+$¡])[A-Za-z\d*+$¡].{6,}'),
       Validators.minLength(6),
       Validators.maxLength(12),
       matchValidator('confirmarContrasenia', true)
@@ -72,6 +74,7 @@ export class PersonaNaturalComponent implements OnInit {
   get db() { return this.registrationForm.controls }
   get contrasenia() { return this.registrationForm.get('contrasenia'); }
   get confirmarContrasenia() { return this.registrationForm.get('confirmarContrasenia'); }
+  get cedula() { return this.registrationForm.get('cedula'); }
 
   constructor(private formBuilder: FormBuilder,
     private dataApiClient: DataApiClientService,) { }
@@ -127,8 +130,8 @@ export class PersonaNaturalComponent implements OnInit {
       tipoIdentificacion: 'CED',
       identificacion: this.db['cedula'].value,
       nacionalidad: this.db['nacionalidad'].value,
-      nombres: this.db['nombres'].value,
-      apellidos: this.db['apellidos'].value,
+      nombres: (this.db['nombres'].value as string).toUpperCase(),
+      apellidos: (this.db['apellidos'].value as string).toUpperCase(),
       fechaNacimiento: this.db['fechaNacimiento'].value,
       email: this.db['correoElectronico'].value,
       numeroCelular: this.db['telefono'].value,
@@ -177,4 +180,15 @@ export class PersonaNaturalComponent implements OnInit {
     this.registrationForm.reset();
   }
 
+  // Only Integer Numbers
+  keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

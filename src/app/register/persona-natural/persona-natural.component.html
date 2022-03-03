@@ -4,7 +4,7 @@
     <div class="col-md-6">
       <label for="nombres" class="form-label">Nombres</label>
       <input type="text" id="nombres" name="nombres"
-        class="form-control" formControlName="nombres"
+        class="form-control uppercase" formControlName="nombres"
         [ngClass]="{'is-invalid': ngForm.submitted && IsInvalid('nombres')}">
         <div class="invalid-feedback">
         Este campo es requerido.
@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-6">
       <label for="apellidos" class="form-label">Apellidos</label>
-      <input type="text" id="apellidos" name="apellidos" class="form-control"
+      <input type="text" id="apellidos" name="apellidos" class="form-control uppercase"
         formControlName="apellidos" [ngClass]="{'is-invalid': IsInvalid('apellidos')}">
         <div class="invalid-feedback">
         Este campo es requerido.
@@ -20,11 +20,17 @@
     </div>
     <div class="col-md-6">
         <label for="cedula" class="form-label">CI</label>
-        <input type="text" name="cedula" id="cedula"
+        <input type="text" name="cedula" id="cedula" (keypress)="keyPressNumbers($event)"
                   class="form-control" formControlName="cedula"
                   [ngClass]="{'is-invalid': IsInvalid('cedula')}">
                   <div class="invalid-feedback">
-                    Este campo es requerido.
+                    <div *ngIf="cedula?.errors?.['required']">
+                        Este campo es requerido
+                    </div>
+                    <div *ngIf="cedula?.errors?.['minlength']">Campo no cumple el mínimo
+                        de {{ cedula?.errors?.['minlength'].requiredLength }} caracteres</div>
+                    <div *ngIf="cedula?.errors?.['maxlength']">Campo supera máximo
+                        de {{ cedula?.errors?.['maxlength'].requiredLength }} caracteres</div>
                   </div>
       </div>
       
@@ -52,7 +58,7 @@
       </div>
       <div class="col-md-6">
         <label for="telefono" class="form-label">Telefono</label>
-        <input type="text" id="telefono" name="telefono"
+        <input type="text" id="telefono" name="telefono" (keypress)="keyPressNumbers($event)"
                   class="form-control" formControlName="telefono"
                   [ngClass]="{'is-invalid': IsInvalid('telefono')}">
                   <div class="invalid-feedback">
@@ -75,6 +81,7 @@
     <div class="col-md-6">
         <label for="contrasenia" class="form-label">Crear Contraseña</label>
         <input type="password" id="contrasenia" name="contrasenia"
+        
                   class="form-control" aria-describedby="passwordHelpInline"
                   formControlName="contrasenia" [ngClass]="{'is-invalid': IsInvalid('contrasenia')}"
                   >
@@ -110,7 +117,7 @@
       <label for="comoContactaste" class="form-label">¿Cómo nos contacto?</label>
       <select class="form-select" name="comoContactaste" id="comoContactaste"
             formControlName="comoContactaste" [ngClass]="{'is-invalid': IsInvalid('comoContactaste')}">
-                <option selected></option>
+                <option [ngValue]="null"> - Seleccione - </option>
                 <option value="1">Redes Sociales</option>
                 <option value="2">Publicidad</option>
                 <option value="3">Analista de Operaciones</option>
@@ -124,7 +131,7 @@
         <input class="form-check-input" type="checkbox" value="true"
         id="acuerdo" name="acuerdo" formControlName="acuerdo"
         [ngClass]="{'is-invalid': IsInvalid('acuerdo')}">
-        <label class="form-check-label" for="flexCheckDefault">
+        <label class="form-check-label" for="acuerdo">
             Estoy de acuerdo y acepto los términos de uso y política de privacidad de la plataforma
         </label>
         <div class="invalid-feedback">

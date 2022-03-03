@@ -4,7 +4,7 @@
     <div class="col-md-6">
       <label for="razonSocial" class="form-label">Razón Social</label>
       <input type="text" id="razonSocial" name="razonSocial"
-        class="form-control" formControlName="razonSocial"
+        class="form-control uppercase" formControlName="razonSocial"
         [ngClass]="{'is-invalid': ngForm.submitted && IsInvalid('razonSocial')}">
         <div class="invalid-feedback">
         Este campo es requerido.
@@ -12,24 +12,37 @@
     </div>
     <div class="col-md-6">
       <label for="ruc" class="form-label">Ruc</label>
-      <input type="text" id="ruc" name="ruc" class="form-control"
+      <input type="text" id="ruc" name="ruc" class="form-control" (keypress)="keyPressNumbers($event)"
         formControlName="ruc" [ngClass]="{'is-invalid': IsInvalid('ruc')}">
         <div class="invalid-feedback">
-        Este campo es requerido.
+            <div *ngIf="ruc?.errors?.['required']">
+                Este campo es requerido
+            </div>
+            <div *ngIf="ruc?.errors?.['minlength']">Campo no cumple el mínimo
+                de {{ ruc?.errors?.['minlength'].requiredLength }} caracteres</div>
+            <div *ngIf="ruc?.errors?.['maxlength']">Campo supera máximo
+                de {{ ruc?.errors?.['maxlength'].requiredLength }} caracteres</div>
         </div>
     </div>
     <div class="col-md-4">
         <label for="inicioActividad" class="form-label">Año de inicio de actividad</label>
         <input type="text" name="inicioActividad" id="inicioActividad"
                   class="form-control" formControlName="inicioActividad"
-                  [ngClass]="{'is-invalid': IsInvalid('inicioActividad')}">
+                  [ngClass]="{'is-invalid': IsInvalid('inicioActividad')}"
+                  (keypress)="keyPressNumbers($event)" maxlength="4" minlength="4">
                   <div class="invalid-feedback">
-                    Este campo es requerido.
+                    <div *ngIf="inicioActividad?.errors?.['required']">
+                        Este campo es requerido
+                    </div>
+                    <div *ngIf="inicioActividad?.errors?.['minlength']">Campo no cumple el mínimo
+                        de {{ inicioActividad?.errors?.['minlength'].requiredLength }} caracteres</div>
+                    <div *ngIf="inicioActividad?.errors?.['maxlength']">Campo supera máximo
+                        de {{ inicioActividad?.errors?.['maxlength'].requiredLength }} caracteres</div>
                   </div>
       </div>
       <div class="col-md-4">
         <label for="telefono" class="form-label">Teléfono</label>
-        <input type="text" name="telefono" id="telefono"
+        <input type="text" name="telefono" id="telefono" (keypress)="keyPressNumbers($event)"
                   class="form-control" formControlName="telefono"
                   [ngClass]="{'is-invalid': IsInvalid('telefono')}">
                   <div class="invalid-feedback">
@@ -52,19 +65,33 @@
       <div class="col-md-6">
         <label for="nombreContacto" class="form-label">Nombre del contacto</label>
         <input type="text" id="nombreContacto" name="nombreContacto"
-                  class="form-control" formControlName="nombreContacto"
-                  [ngClass]="{'is-invalid': IsInvalid('nombreContacto')}">
+                  class="form-control uppercase" formControlName="nombreContacto"
+                  [ngClass]="{'is-invalid': IsInvalid('nombreContacto')}"
+                  (keypress)="keyPressAlpha($event)">
                   <div class="invalid-feedback">
-                    Este campo es requerido.
+                    <div *ngIf="nombreContacto?.errors?.['required']">
+                        Este campo es requerido
+                    </div>
+                    <div *ngIf="nombreContacto?.errors?.['minlength']">Campo no cumple el mínimo
+                        de {{ nombreContacto?.errors?.['minlength'].requiredLength }} caracteres</div>
+                    <div *ngIf="nombreContacto?.errors?.['maxlength']">Campo supera máximo
+                        de {{ nombreContacto?.errors?.['maxlength'].requiredLength }} caracteres</div>
                   </div>
       </div>
       <div class="col-md-6">
         <label for="cargoContacto" class="form-label">Cargo del contacto</label>
         <input type="text" id="cargoContacto" name="cargoContacto"
-                  class="form-control" formControlName="cargoContacto"
-                  [ngClass]="{'is-invalid': IsInvalid('cargoContacto')}">
+                  class="form-control uppercase" formControlName="cargoContacto"
+                  [ngClass]="{'is-invalid': IsInvalid('cargoContacto')}"
+                  (keypress)="keyPressAlpha($event)">
                   <div class="invalid-feedback">
-                    Este campo es requerido.
+                    <div *ngIf="cargoContacto?.errors?.['required']">
+                        Este campo es requerido
+                    </div>
+                    <div *ngIf="cargoContacto?.errors?.['minlength']">Campo no cumple el mínimo
+                        de {{ cargoContacto?.errors?.['minlength'].requiredLength }} caracteres</div>
+                    <div *ngIf="cargoContacto?.errors?.['maxlength']">Campo supera máximo
+                        de {{ cargoContacto?.errors?.['maxlength'].requiredLength }} caracteres</div>
                   </div>
       </div>
 
@@ -116,7 +143,7 @@
       <label for="comoContactaste" class="form-label">¿Cómo nos contacto?</label>
       <select class="form-select" name="comoContactaste" id="comoContactaste"
             formControlName="comoContactaste" [ngClass]="{'is-invalid': IsInvalid('comoContactaste')}">
-                <option selected></option>
+                <option [ngValue]="null"> - Seleccione - </option>
                 <option value="1">Redes Sociales</option>
                 <option value="2">Publicidad</option>
                 <option value="3">Analista de Operaciones</option>
@@ -130,7 +157,7 @@
         <input class="form-check-input" type="checkbox" value="true"
         id="acuerdo" name="acuerdo" formControlName="acuerdo"
         [ngClass]="{'is-invalid': IsInvalid('acuerdo')}">
-        <label class="form-check-label" for="flexCheckDefault">
+        <label class="form-check-label" for="acuerdo">
             Estoy de acuerdo y acepto los términos de uso y política de privacidad de la plataforma
         </label>
         <div class="invalid-feedback">
