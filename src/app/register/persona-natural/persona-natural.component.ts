@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { finalize, Observable, Subscription } from 'rxjs';
 import { matchValidator } from 'src/app/providers/CustomValidators';
 import { PaisesInterface } from 'src/app/shared/models/paises-interface';
@@ -77,7 +78,9 @@ export class PersonaNaturalComponent implements OnInit {
   get cedula() { return this.registrationForm.get('cedula'); }
 
   constructor(private formBuilder: FormBuilder,
-    private dataApiClient: DataApiClientService,) { }
+    private dataApiClient: DataApiClientService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
     this.getCatalogos();
@@ -159,8 +162,10 @@ export class PersonaNaturalComponent implements OnInit {
           text: 'Su cuenta ha sido creada correctamente, por favor revise su correo  para validar la cuenta.',
           icon: 'success',
           confirmButtonText: 'Aceptar'
+        }).then(()=>{
+          //this.resetForm();
+          this.router.navigateByUrl('/')
         });
-        this.resetForm();
       },
       (error) => {
         console.warn(error);
